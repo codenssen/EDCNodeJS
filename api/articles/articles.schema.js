@@ -7,6 +7,15 @@ const articleSchema = Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
   },
+  // Question 2.	Ajouter l’énumération dans le schéma de article.model.js avec deux valeurs : draft, published
+  state: {
+    type: String,
+    required: [true, "state is required"],
+    enum: {
+      values: ["draft", "published"],
+      message: "{VALUE} unknown",
+    },
+  },
 });
 
 let Article;
