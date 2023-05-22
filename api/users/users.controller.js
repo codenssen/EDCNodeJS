@@ -3,6 +3,7 @@ const UnauthorizedError = require("../../errors/unauthorized");
 const jwt = require("jsonwebtoken");
 const config = require("../../config");
 const usersService = require("./users.service");
+const articlesService = require("../articles/articles.service");
 
 class UsersController {
   async getAll(req, res, next) {
@@ -73,6 +74,20 @@ class UsersController {
       next(err);
     }
   }
+
+  // 4.	Créer le endpoint public pour afficher les articles d’un utilisateur. Le endpoint doit être sous la forme api/users/:userId/articles
+  async getArticles(req, res, next) {
+    try {
+
+      const id = req.params.userId;
+      const articles = await articlesService.getArticles(id);
+      res.json(articles);
+
+    } catch (err) {
+      next(err);
+    }
+  }
+
 }
 
 module.exports = new UsersController();

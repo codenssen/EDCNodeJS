@@ -23,6 +23,12 @@ class ArticleService {
         return Article.deleteOne({ _id : id});
     }
 
+    // 4.	Créer le endpoint public pour afficher les articles d’un utilisateur. Le endpoint doit être sous la forme api/users/:userId/articles
+    async getArticles(id) {
+        const articles = await Article.find({user : id}).populate("user", "-password");
+        return articles;
+      }
+
 }
 
 
