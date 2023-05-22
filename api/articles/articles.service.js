@@ -2,6 +2,10 @@ const Article = require("./articles.schema");
 
 class ArticleService {
 
+    get(id) {
+        return Article.findById(id);
+    }
+
     getAll() {
         return Article.find({});
     }

@@ -7,7 +7,8 @@ const userRouter = require("./api/users/users.router");
 const usersController = require("./api/users/users.controller");
 const articlesRouter = require("./api/articles/articles.router");
 const authMiddleware = require("./middlewares/auth");
-require("./api/articles/articles.schema"); // temporaire
+const morgan = require('morgan'); // module pour log serveur
+
 const app = express();
 
 const server = http.createServer(app);
@@ -21,6 +22,8 @@ io.on("connection", (socket) => {
   io.emit("event_from_server", { test: "foo" });*/
 });
 
+app.use(morgan('dev')) // module pour log serveur
+
 app.use((req, res, next) => {
   req.io = io;
   next();
@@ -32,7 +35,7 @@ app.use(express.json());
 app.use("/api/users", authMiddleware, userRouter);
 // app.use("/api/users", userRouter);
 
-app.use("/api/articles", articlesRouter);
+app.use("/api/articles", authMiddleware, articlesRouter);
 
 app.post("/login", usersController.login);
 app.use("/", express.static("public"));
