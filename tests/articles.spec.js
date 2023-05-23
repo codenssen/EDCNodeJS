@@ -5,7 +5,7 @@ const config = require("../config");
 const mongoose = require("mongoose");
 const mockingoose = require("mockingoose");
 const User = require("../api/users/users.model");
-const Article = require("../api/articles/articles.schema");
+const Article = require("../api/articles/articles.model");
 
 describe("Tester API articles", () => {
 
