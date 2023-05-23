@@ -13,10 +13,7 @@ const userSchema = Schema({
     type: String,
     required: true,
     unique: true,
-    /* validate: {
-      validator: isEmail,
-      message: (props) => `${props.value} is not correct`,
-    },*/
+    
   },
   date: {
     type: Date,
@@ -24,7 +21,6 @@ const userSchema = Schema({
   },
   role: {
     type: String,
-    //enum: ["admin", "member"],
     enum: {
       values: ["admin", "member"],
       message: "{VALUE} inconnue",
@@ -33,13 +29,6 @@ const userSchema = Schema({
   age: Number,
 });
 
-/*userSchema.pre('save', function() {
-  if (!this.email) {
-    const error = new Error('mon message')
-    next(error)
-  }
-  next()
-}) */
 
 userSchema.pre("save", async function () {
   this.email = this.email.toLowerCase();
